@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+.header {
+  overflow: hidden;
+  background-color: dodgerblue;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  text-align:center
+}
+input[type=text] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
+}
+input[type=text]:focus {
+  background-color: orange;
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+ul li:hover {
+  background: #ddd;
+}
+ul li {
+  width: 50%;     
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+}
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+
+</style>
+</head>
+<body>
+
+<div id="myDIV" class="header">
+  <h2> <%=title%> </h2>
+</div>
+
+<div>
+<input type="text" id="myInput" placeholder="Nuevo elemento">
+  <span onclick="newElement()" class="button">Add</span>
+<ul id="myUL">
+  <% for(var i = 0; i< lista.length; i++){%>
+    <li class="item">  <%= lista[i] %> </li>
+  <% } %>
+</ul>
+</div>
+<script>
+
+var myNodelist = document.getElementsByTagName("LI");
+for(i=0;i<myNodelist.length;i++){
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("Eliminar");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+
+//Añadir una funcion a cada boton(eliminar) para quitar ese elemento de la lista
+var  cerrar = document.getElementsByClassName("close")
+var i;
+for(i=0;i<cerrar.length;i++){
+    cerrar[i].onclick = function(){
+        var div = this.parentElement;
+        div.style.display = "none";
+    }
+}
+
+//Añadir un nuevo elemento a la lista al clicar en añadir
+function newElement(){
+    var li = document.createElement("li");
+    li.className = "item";
+    //Obtengo el texto
+    var inputValue = document.getElementById("myInput").value;
+    var t = document.createTextNode(inputValue);
+    li.appendChild(t);
+    if (inputValue === '') {
+        alert("El campo no debe estar vacio");
+    } else {
+        document.getElementById("myUL").appendChild(li);
+    }
+    //Limpiamos el formulario
+    document.getElementById("myInput").value = "";
+
+    //Añadimos el boton de eliminar y su funcionalidad
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("Eliminar");
+    span.className = "close";
+    span.appendChild(txt);
+    li.appendChild(span)
+
+    for(i=0;i<cerrar.length;i++){
+        cerrar[i].onclick = function(){
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+    
+}
+
+document.getElementById("myUL").addEventListener("click",function(e) {
+ if (e.target && e.target.matches("li.item")) {
+    e.target.classList.toggle('checked');
+    }
+});
+
+
+</script>
+</body>
+</html>
