@@ -6,7 +6,7 @@ var path = require('path');
 app.set("view engine","ejs");
 
 
-var listado = ["Tarea 1","Tarea 2","Tarea 3","Tarea 4"];
+var listado = ["Tarea 1","Tarea 2","Tarea 3","Tarea "];
 
 app.get('/', function(req, res) {
     res.render("toDoList.ejs",{title:"To do list",lista:listado});
