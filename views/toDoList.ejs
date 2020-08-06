@@ -116,6 +116,7 @@ function newElement(){
         alert("El campo no debe estar vacio");
     } else {
         document.getElementById("myUL").appendChild(li);
+        location.href = "http://ec2-3-128-33-40.us-east-2.compute.amazonaws.com:3000/api/create/"+inputValue;
     }
     //Limpiamos el formulario
     document.getElementById("myInput").value = "";
