@@ -4,12 +4,54 @@ var path = require('path');
 
 
 app.set("view engine","ejs");
-
+var await = require('await');
+var async = require("async");
 
 var listado = ["Tarea 1","Tarea 2","Tarea 3","Tarea 4"];
 
+var mongoose = require('mongoose');
+const { ObjectID, ObjectId } = require('mongodb');
+mongoose.connect('mongodb://127.0.0.1:27017/nuevaInbiot', { 
+    useNewUrlParser: true, 
+    useCreateIndex: true, 
+    useUnifiedTopology: true
+});
+
+var db = mongoose.connect('mongodb://127.0.0.1:27017/nuevaInbiot', function(error){
+    if(error) 
+        console.log(error);
+    else
+        console.log("connection successful");
+});
+var Schema = mongoose.Schema;
+
+var UserSchema = new Schema({
+    language    : { type: String}
+  , role         : { type: String}
+  , firstName : { type: String}
+  , lastName : { type: String}
+  , country : { type: String}
+  , email : { type: String}
+  , password : { type: String}
+  , __v : { type: Number}
+  , isNotifiedBattery : { type: Boolean}
+  , company : { type: String}
+  , position : { type: String}
+});
+
+
+var User = mongoose.model('user', UserSchema);
+
+User.find({role:"ADMIN"}).exec(function(err, users) {
+    if (err) throw err;
+    console.log(users);
+});
+
+
+
 app.get('/', function(req, res) {
-    res.render("toDoList.ejs",{title:"To do list",lista:listado});
+    //res.render("toDoList.ejs",{title:"To do list",lista:listado});
+      res.send("Ruta principal");
 });
 
 
