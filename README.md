@@ -1,4 +1,4 @@
-# to do list with express
+# to do list with express and mongo db
 to do list with express and mongo db
 
 Localhost esuchando en el puerto 300
