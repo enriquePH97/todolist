@@ -22,16 +22,15 @@ var TareaSchema = new Schema({
 });
 var Tarea = mongoose.model('tarea', TareaSchema);
 
-Tarea.find({}, function (err, docs) {
-    listado = [];
-    for(var i=0; i<docs.length;i++){
-        listado.push(docs[i]['nombre'])
-    }
-  })
-
   /////////PAGINA WEB/////////
 app.get('/', function(req, res) {
-    res.render("toDoList.ejs",{title:"To do list",lista: listado});
+    Tarea.find({}, function (err, docs) {
+        listado = [];
+        for(var i=0; i<docs.length;i++){
+            listado.push(docs[i]['nombre'])
+        }
+        res.render("toDoList.ejs",{title:"To do list",lista: listado});
+      })
 });
 
 app.get('/create/:titulo',(req,res)=>{
