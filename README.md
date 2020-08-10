@@ -1,5 +1,5 @@
 # to do list with express
-to do list with express
+to do list with express and mongo db
 
 Localhost esuchando en el puerto 300
 ruta principal:
