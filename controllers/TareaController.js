@@ -5,6 +5,30 @@ var tareaController = {};
 var listado = [];
 
 
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "ec2-3-23-87-71.us-east-2.compute.amazonaws.com",
+  user: "kike",
+  password: "kike",
+  database: "pruebas"
+});
+
+
+tareaController.mainPage = function(req, res){
+    con.connect(function(err) {
+        if (err) throw err;
+        //SELECT * FROM `Medicion` WHERE sistemaId = 220 and anoId = 3 and mesId = 6
+        con.query("SELECT * FROM `Medicion` WHERE sistemaId = 220 and anoId = 3 and mesId = 6 and diaId between 1 and 7", function (err, result, fields) {
+          if (err) throw err;
+
+          for(var i = 0; i< result.length;i++){
+              result[i]['timeStamp'] =  new Date(result[i]['timeStamp'] * 1000).toLocaleString();
+          }
+          res.render('../views/graph.ejs',{datos : result});
+          //res.send("lol")
+        });
+      });
+};
 tareaController.list = function(req, res){
     Tarea.find({}, function (err, docs) {
         listado = [];
